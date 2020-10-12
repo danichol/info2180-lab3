@@ -1,97 +1,66 @@
-/*
-We store our game status element here to allow us to more easily 
-use it later on 
-*/
-const statusDisplay = document.querySelector('.game--status');
-/*
-Here we declare some variables that we will use to track the 
-game state throught the game. 
-*/
-/*
-We will use gameActive to pause the game in case of an end scenario
-*/
-let gameActive = true;
-/*
-We will store our current player here, so we know whos turn 
-*/
-let currentPlayer = "X";
-/*
-We will store our current game state here, the form of empty strings in an array
- will allow us to easily track played cells and validate the game state later on
-*/
-let gameState = ["", "", "", "", "", "", "", "", ""];
-/*
-Here we have declared some messages we will display to the user during the game.
-Since we have some dynamic factors in those messages, namely the current player,
-we have declared them as functions, so that the actual message gets created with 
-current data every time we need it.
-*/
-const winningMessage = () => `Player ${currentPlayer} has won!`;
-const drawMessage = () => `Game ended in a draw!`;
-const currentPlayerTurn = () => `It's ${currentPlayer}'s turn`;
-/*
-We set the inital message to let the players know whose turn it is
-*/
-statusDisplay.innerHTML = currentPlayerTurn();
-function handleCellPlayed() {
-
-}
-function handlePlayerChange() {
-
-}
-function handleResultValidation() {
-
-}
-
-function handleCellClick(clickedCellEvent) {
-/*
-We will save the clicked html element in a variable for easier further use
-*/    
-    const clickedCell = clickedCellEvent.target;
-/*
-Here we will grab the 'data-cell-index' attribute from the clicked cell to identify where that cell is in our grid. 
-Please note that the getAttribute will return a string value. Since we need an actual number we will parse it to an 
-integer(number)
-*/
-    const clickedCellIndex = parseInt(
-      clickedCell.getAttribute('data-cell-index')
-    );
-/* 
-Next up we need to check whether the call has already been played, 
-or if the game is paused. If either of those is true we will simply ignore the click.
-*/
-    if (gameState[clickedCellIndex] !== "" || !gameActive) {
-        return;
+var square;
+var click = 0;
+var winner;
+var button;
+window.onload = function(){
+    square = document.getElementById("board").children;
+    winner = document.getElementById("status");
+    button = document.getElementsByClassName("btn")[0];
+    for (i=0; i<square.length; i++){
+        square[i].className = "square";
+        square[i].addEventListener("click", marker);
+        square[i].addEventListener("mouseover", mouseHover);
+        square[i].addEventListener("mouseout", mouseLeaves);
     }
-/* 
-If everything if in order we will proceed with the game flow
-*/    
-    handleCellPlayed(clickedCell, clickedCellIndex){
-    gameState[clickedCellIndex] = currentPlayer;
-    clickedCell.innerHTML = currentPlayer;
-    }
-    
-    handleResultValidation();
+    button.addEventListener("click", reset);
+     
 }
-}
-function handleResultValidation() {
-    let roundWon = false;
-    for (let i = 0; i <= 7; i++) {
-        const winCondition = winningConditions[i];
-        let a = gameState[winCondition[0]];
-        let b = gameState[winCondition[1]];
-        let c = gameState[winCondition[2]];
-        if (a === '' || b === '' || c === '') {
-            continue;
+
+
+
+function marker(e){
+    if ((e.target.innerHTML != "X")&&(e.target.innerHTML != "O")){
+        if (click == 0){
+            e.target.innerHTML = "X";
+            e.target.className += (" X ");
+            click = 1;
         }
-        if (a === b && b === c) {
-            roundWon = true;
-            break
+        else{
+            e.target.innerHTML = "O";
+            e.target.className += (" O ");
+            click = 0;
         }
     }
-if (roundWon) {
-        statusDisplay.innerHTML = winningMessage();
-        gameActive = false;
-        return;
+    checkWinner();
+}
+
+
+function mouseHover (e){
+    e.target.className += (" hover ");
+}
+
+
+function mouseLeaves(e){
+    e.target.classList.remove("hover");
+}
+
+function checkWinner(){
+    if ((square[0].innerHTML == "X" && square[1].innerHTML == "X" && square[2].innerHTML == "X")||(square[3].innerHTML == "X" && square[4].innerHTML == "X" && square[5].innerHTML == "X")||(square[6].innerHTML == "X" && square[7].innerHTML == "X" && square[8].innerHTML == "X")||(square[0].innerHTML == "X" && square[3].innerHTML == "X" && square[6].innerHTML == "X")||(square[1].innerHTML == "X" && square[4].innerHTML == "X" && square[7].innerHTML == "X")||(square[2].innerHTML == "X" && square[5].innerHTML == "X" && square[8].innerHTML == "X")||(square[2].innerHTML == "X" && square[4].innerHTML == "X" && square[6].innerHTML == "X")||(square[1].innerHTML == "X" && square[4].innerHTML == "X" && square[8].innerHTML == "X")){
+        winner.className += (" you-won ");
+        winner.innerHTML = "Congratulations! X is the winner!";
     }
+    else if ((square[0].innerHTML == "O" && square[1].innerHTML == "O" && square[2].innerHTML == "O")||(square[3].innerHTML == "O" && square[4].innerHTML == "O" && square[5].innerHTML == "O")||(square[6].innerHTML == "O" && square[7].innerHTML == "O" && square[8].innerHTML == "O")||(square[0].innerHTML == "O" && square[3].innerHTML == "O" && square[6].innerHTML == "O")||(square[1].innerHTML == "O" && square[4].innerHTML == "O" && square[7].innerHTML == "O")||(square[2].innerHTML == "O" && square[5].innerHTML == "O" && square[8].innerHTML == "O")||(square[2].innerHTML == "O" && square[4].innerHTML == "O" && square[6].innerHTML == "O")||(square[1].innerHTML == "O" && square[4].innerHTML == "O" && square[8].innerHTML == "O")){
+        winner.className += (" you-won ");
+        winner.innerHTML = "Congratulations! O is the Winner!";
+    }
+}
+
+function reset(){
+    for(var i = 0; i<square.length; i++){
+        square[i].innerHTML = "";
+        square[i].classList.remove("X");
+        square[i].classList.remove("O");
+    }
+    winner.innerHTML = "Move your mouse over a square and click to play an X or an O.";
+    winner.classList.remove("you-won");
 }
