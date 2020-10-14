@@ -59,3 +59,4 @@ function resetGame(){
     result.innerHTML = "Move your mouse over a square and click to play an 'X' or an 'O'. ";
     result.classList.remove("you-won");
 }
+}
