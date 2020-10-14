@@ -50,7 +50,7 @@ function checkResult(){
     }
 }
 
-function refresh(){
+function resetGame(){
     for(var t=0; t<tile.length; t++){
         tile[t].innerHTML ="";
         tile[t].classList.remove("O");
@@ -58,5 +58,4 @@ function refresh(){
     }
     result.innerHTML = "Move your mouse over a square and click to play an 'X' or an 'O'. ";
     result.classList.remove("you-won");
-}
 }
