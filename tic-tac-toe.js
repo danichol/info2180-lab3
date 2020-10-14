@@ -5,7 +5,7 @@ window.onload=function(){
     var result = docuemnt.getElementsByID("result");
     var tile = document.getElementById("tile").children;
 
-    for (p=0; tile.length>p; p++){
+    for (p=0; p<tile.length; p++){
         tile[p].className = "tile";
         tile[p].addEventListener("mouseout", mouseOut);
         tile[p].addEventListener("click", piece);
@@ -51,7 +51,7 @@ function checkResult(){
 }
 
 function refresh(){
-    for(var t=0; tile.length>t; t++){
+    for(var t=0; t<tile.length; t++){
         tile[t].innerHTML ="";
         tile[t].classList.remove("O");
         tile[t].classList.remove("X");
