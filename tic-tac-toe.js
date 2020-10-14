@@ -15,28 +15,28 @@ window.onload=function(){
     btn.addEventListener("click",resetGame);
 }
 
-function mouseOvr(){
-    alrt.target.className+= ("hover");
-}
-
-function mouseOut(alert){
-    alert.target.classList.remove("hover");
-
-function piece(alert){
-    if ((alert.target.innerHTML != "X")&&(alert.target.innerHTML != "O")){
+function piece(al){
+    if ((al.target.innerHTML != "X")&&(al.target.innerHTML != "O")){
         if (click == 4){
-            alert.target.innerHTML = "X";
-            alert.target.className += (" X ");
+            al.target.innerHTML = "X";
+            al.target.className += (" X ");
             click = 5;
         }
         else{
-            alert.target.innerHTML = "O";
-            alert.target.className += (" O ");
+            al.target.innerHTML = "O";
+            al.target.className += (" O ");
             click = 4;
         }
     }
     checkResult();
 }
+
+function mouseOvr(){
+    al.target.className+= ("hover");
+}
+
+function mouseOut(alert){
+    al.target.classList.remove("hover");
 
 
 function checkResult(){
