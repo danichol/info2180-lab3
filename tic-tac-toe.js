@@ -8,7 +8,7 @@ window.onload=function(){
     for (p=0; tile.length>p; p++){
         tile[p].className = "tile";
         tile[p].addEventListener("mouseout", mouseOut);
-        tile[p].addEventListener("click", play);
+        tile[p].addEventListener("click", piece);
         tile[p].addEventListener("mouseover",mouseOvr);
     }
 
@@ -22,41 +22,34 @@ function mouseOvr(){
 function mouseOut(alert){
     alert.target.classList.remove("hover");
 
-function play(alrt){
-    if ((alrt.target.innerHTML != "X") && (alrt.target.innerHTML != "O")){
-        if(click == 4){
-            alrt.target.innerHTML = "X";
-            alrt.target.className = (alrt + "X");
+function piece(alert){
+    if ((alert.target.innerHTML != "X")&&(alert.target.innerHTML != "O")){
+        if (click == 4){
+            alert.target.innerHTML = "X";
+            alert.target.className += (" X ");
             click = 5;
         }
         else{
-            alrt.target.innerHTML = "O";
-            alrt.target.className = (alrt + "O");
+            alert.target.innerHTML = "O";
+            alert.target.className += (" O ");
             click = 4;
         }
     }
-    getResult();
+    checkResult();
 }
 
-function getResult(board,check){
-    var winningOptions = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [6,4,2]]
-    for (var k=0; k < winningOptions.length; k++){
-        var sum=0;
-        var win = winningOptions[k];
 
-        for (var j=0; win.length>j; j++) {
-            if (board[win(j)].textContext === check){
-                sum++
-            }
-        }
-        
-        if (sum===3){
-            return true;
-       }
-       return false;
+function checkResult(){
+    if ((tile[0].innerHTML == "X" && tile[1].innerHTML == "X" && tile[2].innerHTML == "X")||(tile[3].innerHTML == "X" && tile[4].innerHTML == "X" && tile[5].innerHTML == "X")||(tile[6].innerHTML == "X" && tile[7].innerHTML == "X" && tile[8].innerHTML == "X")||(tile[0].innerHTML == "X" && tile[3].innerHTML == "X" && tile[6].innerHTML == "X")||(tile[1].innerHTML == "X" && tile[4].innerHTML == "X" && tile[7].innerHTML == "X")||(tile[2].innerHTML == "X" && tile[5].innerHTML == "X" && tile[8].innerHTML == "X")||(tile[2].innerHTML == "X" && tile[4].innerHTML == "X" && tile[6].innerHTML == "X")||(tile[1].innerHTML == "X" && tile[4].innerHTML == "X" && tile[8].innerHTML == "X")){
+        winner.className += (" you-won ");
+        winner.innerHTML = "Congratulations! X is the winner!";
     }
+    else if ((tile[0].innerHTML == "O" && tile[1].innerHTML == "O" && tile[2].innerHTML == "O")||(tile[3].innerHTML == "O" && tile[4].innerHTML == "O" && tile[5].innerHTML == "O")||(tile[6].innerHTML == "O" && tile[7].innerHTML == "O" && tile[8].innerHTML == "O")||(tile[0].innerHTML == "O" && tile[3].innerHTML == "O" && tile[6].innerHTML == "O")||(tile[1].innerHTML == "O" && tile[4].innerHTML == "O" && tile[7].innerHTML == "O")||(tile[2].innerHTML == "O" && tile[5].innerHTML == "O" && tile[8].innerHTML == "O")||(tile[2].innerHTML == "O" && tile[4].innerHTML == "O" && tile[6].innerHTML == "O")||(tile[1].innerHTML == "O" && tile[4].innerHTML == "O" && tile[8].innerHTML == "O")){
+        winner.className += (" you-won ");
+        winner.innerHTML = "Congratulations! O is the Winner!";
+    }
+}
 
-    var wins = winningOptions(board, "X");
 function refresh(){
     for(var t=0; tile.length>t; t++){
         tile[t].innerHTML ="";
