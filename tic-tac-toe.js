@@ -1,58 +1,60 @@
 var click =4;
+var btn;
+var result;
+var tile;
 
 window.onload=function(){
-    var btn = document.getElementsByClassName("btn")[0];
-    var result = docuemnt.getElementsByID("result");
-    var tile = document.getElementById("tile").children;
+    btn = document.getElementsByClassName("btn")[0];
+    result = docuemnt.getElementsByID("result");
+    tile = document.getElementById("tile").children;
 
-    for (p=0; tile.length>p; p++){
+    for (p=0; p<tile.length; p++){
         tile[p].className = "tile";
         tile[p].addEventListener("mouseout", mouseOut);
-        tile[p].addEventListener("click", play);
+        tile[p].addEventListener("click", piece);
         tile[p].addEventListener("mouseover",mouseOvr);
     }
 
     btn.addEventListener("click",resetGame);
 }
 
-
-function play(alrt){
-    if ((alrt.target.innerHTML != "X") && (alrt.target.innerHTML != "O")){
-        if(click == 4){
-            alrt.target.innerHTML = "X";
-            alrt.target.className = (alrt + "X");
+function piece(al){
+    if ((al.target.innerHTML != "X")&&(al.target.innerHTML != "O")){
+        if (click == 4){
+            al.target.innerHTML = "X";
+            al.target.className += (" X ");
             click = 5;
         }
         else{
-            alrt.target.innerHTML = "O";
-            alrt.target.className = (alrt + "O");
+            al.target.innerHTML = "O";
+            al.target.className += (" O ");
             click = 4;
         }
     }
-    getResult();
+    checkResult();
 }
 
-function getResult(board,check){
-    var winningOptions = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [6,4,2]]
-    for (var k=0; k < winningOptions.length; k++){
-        var sum=0;
-        var win = winningOptions[k];
+function mouseOvr(){
+    al.target.className+= ("hover");
+}
 
-        for (var j=0; win.length>j; j++) {
-            if (board[win(j)].textContext === check){
-                sum++
-            }
-        }
-        
-        if (sum===3){
-            return true;
-       }
-       return false;
+function mouseOut(alert){
+    al.target.classList.remove("hover");
+
+
+function checkResult(){
+    if ((tile[0].innerHTML == "X" && tile[1].innerHTML == "X" && tile[2].innerHTML == "X")||(tile[3].innerHTML == "X" && tile[4].innerHTML == "X" && tile[5].innerHTML == "X")||(tile[6].innerHTML == "X" && tile[7].innerHTML == "X" && tile[8].innerHTML == "X")||(tile[0].innerHTML == "X" && tile[3].innerHTML == "X" && tile[6].innerHTML == "X")||(tile[1].innerHTML == "X" && tile[4].innerHTML == "X" && tile[7].innerHTML == "X")||(tile[2].innerHTML == "X" && tile[5].innerHTML == "X" && tile[8].innerHTML == "X")||(tile[2].innerHTML == "X" && tile[4].innerHTML == "X" && tile[6].innerHTML == "X")||(tile[1].innerHTML == "X" && tile[4].innerHTML == "X" && tile[8].innerHTML == "X")){
+        winner.className += (" you-won ");
+        winner.innerHTML = "Congratulations! X is the winner!";
     }
+    else if ((tile[0].innerHTML == "O" && tile[1].innerHTML == "O" && tile[2].innerHTML == "O")||(tile[3].innerHTML == "O" && tile[4].innerHTML == "O" && tile[5].innerHTML == "O")||(tile[6].innerHTML == "O" && tile[7].innerHTML == "O" && tile[8].innerHTML == "O")||(tile[0].innerHTML == "O" && tile[3].innerHTML == "O" && tile[6].innerHTML == "O")||(tile[1].innerHTML == "O" && tile[4].innerHTML == "O" && tile[7].innerHTML == "O")||(tile[2].innerHTML == "O" && tile[5].innerHTML == "O" && tile[8].innerHTML == "O")||(tile[2].innerHTML == "O" && tile[4].innerHTML == "O" && tile[6].innerHTML == "O")||(tile[1].innerHTML == "O" && tile[4].innerHTML == "O" && tile[8].innerHTML == "O")){
+        winner.className += (" you-won ");
+        winner.innerHTML = "Congratulations! O is the Winner!";
+    }
+}
 
-    var wins = winningOptions(board, "X");
-function refresh(){
-    for(var t=0; tile.length>t; t++){
+function resetGame(){
+    for(var t=0; t<tile.length; t++){
         tile[t].innerHTML ="";
         tile[t].classList.remove("O");
         tile[t].classList.remove("X");
