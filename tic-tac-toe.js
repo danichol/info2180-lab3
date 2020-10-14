@@ -1,9 +1,12 @@
 var click =4;
+var btn;
+var result;
+var tile;
 
 window.onload=function(){
-    var btn = document.getElementsByClassName("btn")[0];
-    var result = docuemnt.getElementsByID("result");
-    var tile = document.getElementById("tile").children;
+    btn = document.getElementsByClassName("btn")[0];
+    result = docuemnt.getElementsByID("result");
+    tile = document.getElementById("tile").children;
 
     for (p=0; p<tile.length; p++){
         tile[p].className = "tile";
